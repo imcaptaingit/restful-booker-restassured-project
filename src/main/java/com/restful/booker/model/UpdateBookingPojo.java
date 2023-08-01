@@ -1,6 +1,7 @@
 package com.restful.booker.model;
 
-public class BookingPojo {
+public class UpdateBookingPojo {
+
     private String firstname;
     private String lastname;
     private int totalprice;
@@ -57,6 +58,7 @@ public class BookingPojo {
     }
 
     public static class BookingDates {
+
         private String checkin;
         private String checkout;
 

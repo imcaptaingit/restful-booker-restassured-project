@@ -1,8 +1,11 @@
 package com.restful.booker.crudtest;
 
-import com.restful.booker.model.BookingPojo;
+import com.restful.booker.model.AuthorisationPojo;
+import com.restful.booker.model.UpdateBookingPojo;
 import com.restful.booker.testbase.TestBase;
 import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
@@ -10,29 +13,44 @@ import static io.restassured.RestAssured.given;
 
 public class PutTest extends TestBase {
 
+    static ValidatableResponse response;
+    static String token;
+
+    @BeforeClass
+    public static void inIt() {
+        AuthorisationPojo authorisationPojo = new AuthorisationPojo();
+        authorisationPojo.setUsername("admin");
+        authorisationPojo.setPassword("password123");
+        token = given()
+                .header("Content-Type", "application/json")
+                .when()
+                .body(authorisationPojo)
+                .post("https://restful-booker.herokuapp.com/auth")
+                .then().statusCode(200).extract().path("token");
+    }
+
     @Test
     public void updateCurrentBooking() {
-        BookingPojo.BookingDates date = new BookingPojo.BookingDates();
-        date.setCheckIn("2023-01-01");
-        date.setCheckout("2023-02-01");
-        BookingPojo BookingPojo = new BookingPojo();
-        BookingPojo.setFirstName("ABC");
-        BookingPojo.setLastName("XYZ");
-        BookingPojo.setTotalPrice(100);
-        BookingPojo.setDepositPaid(true);
-        BookingPojo.setBookingDates(date);
-        BookingPojo.setAdditionalNeeds("Breakfast");
+        UpdateBookingPojo.BookingDates date = new UpdateBookingPojo.BookingDates();
+        date.setCheckin("2023-06-01");
+        date.setCheckout("2023-06-05");
+        UpdateBookingPojo updateBookingPojo = new UpdateBookingPojo();
+        updateBookingPojo.setFirstname("sarvay");
+        updateBookingPojo.setLastname("Shaikh");
+        updateBookingPojo.setTotalprice(200);
+        updateBookingPojo.setDepositpaid(true);
+        updateBookingPojo.setBookingdates(date);
+        updateBookingPojo.setAdditionalneeds("Breakfast and Lunch");
         Response response = given()
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
-                .pathParam("id", 111)
-                .body(BookingPojo)
-                .when().put("{id}");
-        response.then().statusCode(200);
-        response.prettyPrint();
+                .header("Cookie", "token=" + token)
+                .pathParam("id", 10)
+                .body(updateBookingPojo)
+                .when().put("https://restful-booker.herokuapp.com/booking/{id}");
+        response.then().log().all().statusCode(200);
     }
-
-    }
+}
 
 
 
