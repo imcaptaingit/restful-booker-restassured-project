@@ -31,7 +31,7 @@ public class PatchTest extends TestBase {
     @Test
     public void updateARecordPartially() {
         PatchBookingPojo patchBookingPojo = new PatchBookingPojo();
-        patchBookingPojo.setAdditionalneeds("Lunch");
+        patchBookingPojo.setAdditionalNeeds("Lunch");
         Response response = given()
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")

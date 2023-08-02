@@ -33,8 +33,8 @@ public class CRUDTest {
         date.setCheckin("2023-07-01");
         date.setCheckout("2023-07-10");
         BookingPojo bookingPojo = new BookingPojo();
-        bookingPojo.setFirstname("Jimesh");
-        bookingPojo.setLastname("Patel");
+        bookingPojo.setFirstname("Sarvat");
+        bookingPojo.setLastname("Shaikh");
         bookingPojo.setTotalprice(1000);
         bookingPojo.setDepositpaid(true);
         bookingPojo.setBookingdates(date);
@@ -50,7 +50,7 @@ public class CRUDTest {
     @Test
     public void test03() {
         PatchBookingPojo patchBookingPojo = new PatchBookingPojo();
-        patchBookingPojo.setAdditionalneeds("Lunch");
+        patchBookingPojo.setAdditionalNeeds("Lunch");
         Response response = given()
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
@@ -66,8 +66,8 @@ public class CRUDTest {
         date.setCheckin("2023-06-01");
         date.setCheckout("2023-06-05");
         UpdateBookingPojo updateBookingPojo = new UpdateBookingPojo();
-        updateBookingPojo.setFirstname("Jimesh");
-        updateBookingPojo.setLastname("Patel");
+        updateBookingPojo.setFirstname("Sarvat");
+        updateBookingPojo.setLastname("Shaikh");
         updateBookingPojo.setTotalprice(200);
         updateBookingPojo.setDepositpaid(true);
         updateBookingPojo.setBookingdates(date);
